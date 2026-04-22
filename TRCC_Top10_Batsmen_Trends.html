@@ -1,0 +1,1981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TRCC — The Top Ten: Career Arcs of the Run-Scorers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400;1,9..144,600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --paper:#F2ECDD;
+  --paper-2:#EBE3CF;
+  --ink:#1A1713;
+  --ink-soft:#4A4238;
+  --rule:#C9BFA5;
+  --green:#1F3A29;
+  --oxblood:#7A2C2A;
+  --gold:#9C7A2B;
+  --highlight:#E8DDBF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:"Newsreader", Georgia, serif;font-size:17px;line-height:1.55;
+  font-feature-settings:"liga","kern";text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased}
+body{
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(26,23,19,0.035) 1px, transparent 0);
+  background-size:4px 4px;
+}
+.page{max-width:1180px;margin:0 auto;padding:48px 56px 120px}
+@media(max-width:780px){.page{padding:28px 22px 80px}}
+
+/* Masthead */
+.masthead{border-top:3px double var(--ink);border-bottom:1px solid var(--rule);
+  padding:14px 0 10px;margin-bottom:40px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;
+  font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink-soft)}
+.masthead .lf{font-weight:700;color:var(--ink)}
+
+/* Title block */
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:0.3em;
+  text-transform:uppercase;color:var(--oxblood);margin-bottom:18px}
+h1{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(44px,7vw,82px);
+  line-height:0.98;margin:0 0 18px;letter-spacing:-0.02em;
+  font-variation-settings:"opsz" 144, "SOFT" 0}
+h1 em{font-style:italic;font-weight:400;color:var(--oxblood);
+  font-variation-settings:"opsz" 144, "SOFT" 100}
+.subtitle{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(20px,2.2vw,26px);
+  color:var(--ink-soft);font-weight:400;max-width:760px;line-height:1.35;margin-bottom:32px}
+.standfirst{font-size:18px;max-width:720px;color:var(--ink-soft);
+  border-left:3px solid var(--oxblood);padding-left:20px;margin:32px 0 48px}
+
+/* Section labels */
+.sec-label{display:flex;align-items:center;gap:14px;margin:72px 0 24px}
+.sec-label::before{content:"";flex:0 0 28px;height:1px;background:var(--ink)}
+.sec-label h2{font-family:"Fraunces",serif;font-weight:600;font-size:14px;
+  letter-spacing:0.25em;text-transform:uppercase;margin:0;
+  font-variation-settings:"opsz" 14}
+.sec-label::after{content:"";flex:1;height:1px;background:var(--rule)}
+
+/* Chart panel */
+.chart-panel{background:linear-gradient(180deg,#FBF6E8 0%, #F2ECDD 100%);
+  border:1px solid var(--rule);
+  box-shadow:0 1px 0 rgba(26,23,19,0.04), 0 20px 40px -30px rgba(26,23,19,0.3);
+  padding:36px 40px 28px;margin-bottom:32px;position:relative}
+.chart-panel::before{content:"";position:absolute;top:8px;left:8px;right:8px;bottom:8px;
+  border:1px solid var(--rule);pointer-events:none}
+@media(max-width:780px){.chart-panel{padding:20px 18px}}
+
+.metric-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid var(--rule);
+  flex-wrap:wrap}
+.metric-tab{background:transparent;border:none;cursor:pointer;
+  font-family:"Fraunces",serif;font-weight:500;font-size:15px;
+  padding:10px 18px 12px;color:var(--ink-soft);position:relative;
+  transition:color 0.15s;letter-spacing:0.01em}
+.metric-tab:hover{color:var(--ink)}
+.metric-tab.active{color:var(--oxblood)}
+.metric-tab.active::after{content:"";position:absolute;left:0;right:0;bottom:-1px;
+  height:2px;background:var(--oxblood)}
+.metric-tab .unit{font-family:"JetBrains Mono",monospace;font-size:10px;
+  letter-spacing:0.15em;text-transform:uppercase;margin-left:6px;opacity:0.6}
+
+.chart-wrap{position:relative;height:460px}
+@media(max-width:780px){.chart-wrap{height:360px}}
+
+.chart-caption{font-family:"Fraunces",serif;font-style:italic;font-size:14px;
+  color:var(--ink-soft);margin-top:14px;max-width:600px;line-height:1.5}
+
+/* Player legend */
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:2px;margin-top:20px;border-top:1px solid var(--rule);padding-top:14px}
+.legend-item{display:flex;align-items:center;gap:10px;cursor:pointer;
+  padding:6px 8px;font-size:14px;user-select:none;
+  transition:background 0.12s;border-radius:2px}
+.legend-item:hover{background:var(--highlight)}
+.legend-item.muted{opacity:0.35}
+.legend-item .dot{width:12px;height:12px;border-radius:50%;flex:0 0 12px;
+  border:1.5px solid rgba(26,23,19,0.15)}
+.legend-item .name{font-family:"Fraunces",serif;font-weight:500}
+.legend-controls{display:flex;gap:8px;margin-top:10px;font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.15em;text-transform:uppercase}
+.legend-controls button{background:transparent;border:1px solid var(--rule);
+  padding:5px 10px;cursor:pointer;color:var(--ink-soft);font:inherit;letter-spacing:inherit}
+.legend-controls button:hover{background:var(--highlight);color:var(--ink)}
+
+/* Small multiples */
+.small-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;margin-top:16px}
+.sm-card{background:#FBF6E8;border:1px solid var(--rule);padding:18px 18px 14px;
+  position:relative;transition:transform 0.2s, box-shadow 0.2s}
+.sm-card:hover{transform:translateY(-2px);box-shadow:0 10px 30px -15px rgba(26,23,19,0.3)}
+.sm-rank{position:absolute;top:12px;right:16px;font-family:"JetBrains Mono",monospace;
+  font-size:11px;color:var(--ink-soft);letter-spacing:0.1em}
+.sm-name{font-family:"Fraunces",serif;font-weight:600;font-size:20px;line-height:1.15;
+  margin:0 0 2px;letter-spacing:-0.01em}
+.sm-span{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--ink-soft);
+  letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px}
+.sm-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:10px;
+  padding:8px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.sm-stat{text-align:center}
+.sm-stat .v{font-family:"JetBrains Mono",monospace;font-weight:700;font-size:16px;color:var(--ink)}
+.sm-stat .l{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);
+  font-family:"JetBrains Mono",monospace}
+.sm-chart-wrap{height:90px;position:relative}
+
+/* Career table */
+.career-table{width:100%;border-collapse:collapse;font-size:15px;margin-top:8px}
+.career-table thead th{font-family:"JetBrains Mono",monospace;font-size:10px;
+  font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--ink-soft);
+  text-align:right;padding:10px 8px;border-bottom:2px solid var(--ink)}
+.career-table thead th:first-child,.career-table thead th:nth-child(2){text-align:left}
+.career-table tbody td{padding:11px 8px;border-bottom:1px solid var(--rule);text-align:right;
+  font-family:"JetBrains Mono",monospace;font-weight:500;font-size:14px}
+.career-table tbody td:nth-child(2){text-align:left;font-family:"Fraunces",serif;
+  font-weight:500;font-size:17px}
+.career-table tbody td:first-child{text-align:left;color:var(--ink-soft);font-size:12px}
+.career-table tbody tr:hover{background:var(--highlight)}
+.career-table .hilite{color:var(--oxblood);font-weight:700}
+
+/* Footnotes */
+.footnotes{margin-top:80px;padding-top:24px;border-top:1px solid var(--rule);
+  font-size:14px;color:var(--ink-soft);line-height:1.6;max-width:780px}
+.footnotes h3{font-family:"Fraunces",serif;font-weight:600;font-size:13px;
+  letter-spacing:0.25em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+.footnotes ol{padding-left:18px}
+.footnotes li{margin-bottom:8px}
+
+.dropcap::first-letter{font-family:"Fraunces",serif;font-weight:600;font-style:italic;
+  font-size:72px;line-height:0.85;float:left;margin:6px 10px -4px 0;color:var(--oxblood)}
+
+.colophon{margin-top:40px;text-align:center;font-family:"JetBrains Mono",monospace;
+  font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft)}
+.colophon::before{content:"❦";display:block;font-family:"Fraunces",serif;font-size:20px;
+  color:var(--oxblood);margin-bottom:14px;font-style:italic}
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="masthead">
+  <span class="lf">Tanjong Rhu Cricket Club</span>
+  <span>Historical Almanack · Vol. I</span>
+  <span>22 April 2026</span>
+</div>
+
+<div class="eyebrow">A Statistical Study · Batting</div>
+<h1>The Top Ten<br><em>& how they got there</em></h1>
+<div class="subtitle">Season-by-season trajectories of TRCC's ten leading career run-scorers, traced from their first recorded innings to the present day.</div>
+
+<div class="standfirst">
+Eight years of Sunday cricket. Two hundred and forty-eight matches. One hundred and sixty names in the book. These ten sit at the top of the pile — but volume alone tells half the story. Under TRCC's retirement rule, longevity, strike-rate and the willingness to push for a score past thirty matter more than a conventional average ever could.
+</div>
+
+<div class="sec-label"><h2>The Trend Lines</h2></div>
+
+<div class="chart-panel">
+  <div class="metric-tabs" id="metricTabs">
+    <button class="metric-tab active" data-metric="Runs">Runs per Season<span class="unit">Volume</span></button>
+    <button class="metric-tab" data-metric="SR">Strike Rate<span class="unit">Skill</span></button>
+    <button class="metric-tab" data-metric="Rate30">30+ Score Rate<span class="unit">Impact</span></button>
+    <button class="metric-tab" data-metric="HS">Highest Score<span class="unit">Peak</span></button>
+  </div>
+
+  <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
+
+  <div class="chart-caption" id="chartCaption">
+    Total runs scored in each season. Click any name below to isolate or remove them from the chart.
+  </div>
+
+  <div class="legend" id="legend"></div>
+  <div class="legend-controls">
+    <button id="btnAll">Show all</button>
+    <button id="btnNone">Hide all</button>
+  </div>
+</div>
+
+<div class="sec-label"><h2>Individual Arcs</h2></div>
+
+<div class="small-grid" id="smallGrid"></div>
+
+<div class="sec-label"><h2>Career Ledger</h2></div>
+
+<table class="career-table">
+  <thead>
+    <tr>
+      <th>#</th><th>Player</th><th>Inn</th><th>Runs</th><th>HS</th><th>4s</th><th>6s</th>
+      <th>SR</th><th>Avg</th><th>30+%</th><th>Span</th>
+    </tr>
+  </thead>
+  <tbody id="tableBody"></tbody>
+</table>
+
+<div class="footnotes">
+<h3>Methodology & Caveats</h3>
+<ol>
+<li><strong>Per-match aggregation.</strong> For Declared 4-innings matches, a player can appear twice in the raw batting records for a single match. All season and career figures in this piece collapse those to one innings per match — summing runs and balls, counting a single "not-out" only when every constituent innings was not out.</li>
+<li><strong>Why average is downplayed.</strong> Under TRCC's retirement rule (9–11 balls mandatory, 25 balls max unless last-man-in), a high average often reflects frequency of reaching the cap rather than durability. Strike rate and 30+ rate are the stronger skill signals.</li>
+<li><strong>Season coverage.</strong> Trend lines begin at each player's earliest recorded per-match season. S1 2018 exists in career totals but has no per-match rows, so that season does not appear on any chart. The 2020–2021 COVID break means there are no seasons plotted for those years. S1 2019 has limited match coverage and will appear sparse.</li>
+<li><strong>Gaps vs. zeros.</strong> Where a line dips to zero, the player did not play that season — not that they scored none. Hover points to read the match count.</li>
+<li><strong>Top-ten defined by.</strong> Total career runs (per Career_Batting tab). Ranked in that order throughout.</li>
+</ol>
+</div>
+
+<div class="colophon">— Compiled from the TRCC historical database —</div>
+
+</div>
+
+<script>
+const PAYLOAD = {
+  "seasons": [
+    "S2 2018",
+    "S1 2019",
+    "S1 2022",
+    "S1 2023",
+    "S2 2023",
+    "S3 2023",
+    "S1 2024",
+    "S2 2024",
+    "S1 2025",
+    "S2 2025",
+    "S1 2026"
+  ],
+  "players": [
+    "Shiva Vilayanur",
+    "Atin Gupta",
+    "Neeraj Kumar",
+    "Amol K",
+    "AD",
+    "Anirudh Singh",
+    "Pratik Padiya",
+    "Rajesh Reddy",
+    "Kullu",
+    "TG Ramakrishnan"
+  ],
+  "data": {
+    "Shiva Vilayanur": [
+      {
+        "Season": "S2 2018",
+        "Matches": 22,
+        "Runs": 187,
+        "Balls": 186,
+        "SR": 100.5,
+        "Avg": 9.3,
+        "Rate30": 4.5,
+        "HS": 46,
+        "Fours": 7,
+        "Sixes": 14
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 2,
+        "Runs": 10,
+        "Balls": 13,
+        "SR": 76.9,
+        "Avg": 5.0,
+        "Rate30": 0.0,
+        "HS": 10,
+        "Fours": 0,
+        "Sixes": 1
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 18,
+        "Runs": 301,
+        "Balls": 207,
+        "SR": 145.4,
+        "Avg": 20.1,
+        "Rate30": 11.1,
+        "HS": 45,
+        "Fours": 8,
+        "Sixes": 23
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 23,
+        "Runs": 364,
+        "Balls": 228,
+        "SR": 159.6,
+        "Avg": 20.2,
+        "Rate30": 17.4,
+        "HS": 62,
+        "Fours": 7,
+        "Sixes": 35
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 20,
+        "Runs": 315,
+        "Balls": 209,
+        "SR": 150.7,
+        "Avg": 21.0,
+        "Rate30": 10.0,
+        "HS": 40,
+        "Fours": 17,
+        "Sixes": 23
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 17,
+        "Runs": 252,
+        "Balls": 159,
+        "SR": 158.5,
+        "Avg": 15.8,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 19,
+        "Sixes": 16
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 26,
+        "Runs": 490,
+        "Balls": 350,
+        "SR": 140.0,
+        "Avg": 22.3,
+        "Rate30": 26.9,
+        "HS": 70,
+        "Fours": 27,
+        "Sixes": 40
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 18,
+        "Runs": 515,
+        "Balls": 341,
+        "SR": 151.0,
+        "Avg": 42.9,
+        "Rate30": 33.3,
+        "HS": 100,
+        "Fours": 24,
+        "Sixes": 43
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 21,
+        "Runs": 431,
+        "Balls": 243,
+        "SR": 177.4,
+        "Avg": 23.9,
+        "Rate30": 28.6,
+        "HS": 53,
+        "Fours": 13,
+        "Sixes": 44
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 14,
+        "Runs": 409,
+        "Balls": 239,
+        "SR": 171.1,
+        "Avg": 40.9,
+        "Rate30": 35.7,
+        "HS": 85,
+        "Fours": 11,
+        "Sixes": 45
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 10,
+        "Runs": 164,
+        "Balls": 104,
+        "SR": 157.7,
+        "Avg": 18.2,
+        "Rate30": 20.0,
+        "HS": 49,
+        "Fours": 10,
+        "Sixes": 14
+      }
+    ],
+    "Atin Gupta": [
+      {
+        "Season": "S2 2018",
+        "Matches": 12,
+        "Runs": 125,
+        "Balls": 119,
+        "SR": 105.0,
+        "Avg": 15.6,
+        "Rate30": 8.3,
+        "HS": 30,
+        "Fours": 7,
+        "Sixes": 4
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 2,
+        "Runs": 23,
+        "Balls": 33,
+        "SR": 69.7,
+        "Avg": 23.0,
+        "Rate30": 0.0,
+        "HS": 14,
+        "Fours": 2,
+        "Sixes": 1
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 24,
+        "Runs": 165,
+        "Balls": 211,
+        "SR": 78.2,
+        "Avg": 13.8,
+        "Rate30": 0.0,
+        "HS": 20,
+        "Fours": 3,
+        "Sixes": 4
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 12,
+        "Runs": 102,
+        "Balls": 105,
+        "SR": 97.1,
+        "Avg": 17.0,
+        "Rate30": 0.0,
+        "HS": 20,
+        "Fours": 4,
+        "Sixes": 4
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 13,
+        "Runs": 136,
+        "Balls": 113,
+        "SR": 120.4,
+        "Avg": 19.4,
+        "Rate30": 0.0,
+        "HS": 27,
+        "Fours": 10,
+        "Sixes": 5
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 15,
+        "Runs": 165,
+        "Balls": 123,
+        "SR": 134.1,
+        "Avg": 13.8,
+        "Rate30": 6.7,
+        "HS": 36,
+        "Fours": 10,
+        "Sixes": 9
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 23,
+        "Runs": 261,
+        "Balls": 239,
+        "SR": 109.2,
+        "Avg": 20.1,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 21,
+        "Sixes": 12
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 17,
+        "Runs": 291,
+        "Balls": 222,
+        "SR": 131.1,
+        "Avg": 22.4,
+        "Rate30": 11.8,
+        "HS": 52,
+        "Fours": 19,
+        "Sixes": 21
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 22,
+        "Runs": 263,
+        "Balls": 228,
+        "SR": 115.4,
+        "Avg": 21.9,
+        "Rate30": 4.5,
+        "HS": 37,
+        "Fours": 15,
+        "Sixes": 15
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 16,
+        "Runs": 321,
+        "Balls": 236,
+        "SR": 136.0,
+        "Avg": 29.2,
+        "Rate30": 18.8,
+        "HS": 74,
+        "Fours": 23,
+        "Sixes": 22
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 12,
+        "Runs": 227,
+        "Balls": 161,
+        "SR": 141.0,
+        "Avg": 28.4,
+        "Rate30": 16.7,
+        "HS": 46,
+        "Fours": 16,
+        "Sixes": 18
+      }
+    ],
+    "Neeraj Kumar": [
+      {
+        "Season": "S2 2018",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 7,
+        "Runs": 71,
+        "Balls": 80,
+        "SR": 88.8,
+        "Avg": 17.8,
+        "Rate30": 0.0,
+        "HS": 25,
+        "Fours": 1,
+        "Sixes": 6
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 10,
+        "Runs": 100,
+        "Balls": 68,
+        "SR": 147.1,
+        "Avg": 16.7,
+        "Rate30": 0.0,
+        "HS": 25,
+        "Fours": 1,
+        "Sixes": 10
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 13,
+        "Runs": 177,
+        "Balls": 95,
+        "SR": 186.3,
+        "Avg": 19.7,
+        "Rate30": 15.4,
+        "HS": 35,
+        "Fours": 5,
+        "Sixes": 19
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 6,
+        "Runs": 90,
+        "Balls": 70,
+        "SR": 128.6,
+        "Avg": 18.0,
+        "Rate30": 16.7,
+        "HS": 31,
+        "Fours": 8,
+        "Sixes": 5
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 7,
+        "Runs": 246,
+        "Balls": 115,
+        "SR": 213.9,
+        "Avg": 61.5,
+        "Rate30": 57.1,
+        "HS": 69,
+        "Fours": 13,
+        "Sixes": 26
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 10,
+        "Runs": 296,
+        "Balls": 151,
+        "SR": 196.0,
+        "Avg": 42.3,
+        "Rate30": 30.0,
+        "HS": 102,
+        "Fours": 10,
+        "Sixes": 33
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 15,
+        "Runs": 419,
+        "Balls": 216,
+        "SR": 194.0,
+        "Avg": 32.2,
+        "Rate30": 46.7,
+        "HS": 66,
+        "Fours": 17,
+        "Sixes": 47
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 14,
+        "Runs": 435,
+        "Balls": 220,
+        "SR": 197.7,
+        "Avg": 48.3,
+        "Rate30": 35.7,
+        "HS": 83,
+        "Fours": 16,
+        "Sixes": 48
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 12,
+        "Runs": 308,
+        "Balls": 159,
+        "SR": 193.7,
+        "Avg": 30.8,
+        "Rate30": 41.7,
+        "HS": 72,
+        "Fours": 28,
+        "Sixes": 26
+      }
+    ],
+    "Amol K": [
+      {
+        "Season": "S2 2018",
+        "Matches": 24,
+        "Runs": 214,
+        "Balls": 248,
+        "SR": 86.3,
+        "Avg": 11.3,
+        "Rate30": 4.2,
+        "HS": 39,
+        "Fours": 14,
+        "Sixes": 9
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 2,
+        "Runs": 6,
+        "Balls": 7,
+        "SR": 85.7,
+        "Avg": 6.0,
+        "Rate30": 0.0,
+        "HS": 4,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 25,
+        "Runs": 116,
+        "Balls": 186,
+        "SR": 62.4,
+        "Avg": 6.1,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 2,
+        "Sixes": 2
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 21,
+        "Runs": 163,
+        "Balls": 164,
+        "SR": 99.4,
+        "Avg": 9.1,
+        "Rate30": 0.0,
+        "HS": 29,
+        "Fours": 7,
+        "Sixes": 5
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 16,
+        "Runs": 61,
+        "Balls": 99,
+        "SR": 61.6,
+        "Avg": 5.5,
+        "Rate30": 0.0,
+        "HS": 12,
+        "Fours": 3,
+        "Sixes": 1
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 18,
+        "Runs": 129,
+        "Balls": 117,
+        "SR": 110.3,
+        "Avg": 8.6,
+        "Rate30": 0.0,
+        "HS": 22,
+        "Fours": 4,
+        "Sixes": 6
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 25,
+        "Runs": 233,
+        "Balls": 219,
+        "SR": 106.4,
+        "Avg": 13.7,
+        "Rate30": 8.0,
+        "HS": 36,
+        "Fours": 9,
+        "Sixes": 19
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 19,
+        "Runs": 226,
+        "Balls": 181,
+        "SR": 124.9,
+        "Avg": 13.3,
+        "Rate30": 5.3,
+        "HS": 43,
+        "Fours": 19,
+        "Sixes": 14
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 22,
+        "Runs": 155,
+        "Balls": 182,
+        "SR": 85.2,
+        "Avg": 11.1,
+        "Rate30": 0.0,
+        "HS": 19,
+        "Fours": 10,
+        "Sixes": 4
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 18,
+        "Runs": 264,
+        "Balls": 212,
+        "SR": 124.5,
+        "Avg": 20.3,
+        "Rate30": 5.6,
+        "HS": 51,
+        "Fours": 8,
+        "Sixes": 22
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 14,
+        "Runs": 161,
+        "Balls": 143,
+        "SR": 112.6,
+        "Avg": 14.6,
+        "Rate30": 7.1,
+        "HS": 33,
+        "Fours": 15,
+        "Sixes": 9
+      }
+    ],
+    "AD": [
+      {
+        "Season": "S2 2018",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 6,
+        "Runs": 53,
+        "Balls": 57,
+        "SR": 93.0,
+        "Avg": 17.7,
+        "Rate30": 0.0,
+        "HS": 18,
+        "Fours": 4,
+        "Sixes": 2
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 24,
+        "Runs": 208,
+        "Balls": 184,
+        "SR": 113.0,
+        "Avg": 10.9,
+        "Rate30": 0.0,
+        "HS": 24,
+        "Fours": 6,
+        "Sixes": 15
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 20,
+        "Runs": 272,
+        "Balls": 188,
+        "SR": 144.7,
+        "Avg": 17.0,
+        "Rate30": 5.0,
+        "HS": 32,
+        "Fours": 12,
+        "Sixes": 20
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 17,
+        "Runs": 218,
+        "Balls": 133,
+        "SR": 163.9,
+        "Avg": 14.5,
+        "Rate30": 11.8,
+        "HS": 45,
+        "Fours": 10,
+        "Sixes": 20
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 18,
+        "Runs": 217,
+        "Balls": 149,
+        "SR": 145.6,
+        "Avg": 14.5,
+        "Rate30": 11.1,
+        "HS": 52,
+        "Fours": 8,
+        "Sixes": 22
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 16,
+        "Runs": 216,
+        "Balls": 145,
+        "SR": 149.0,
+        "Avg": 14.4,
+        "Rate30": 6.2,
+        "HS": 39,
+        "Fours": 5,
+        "Sixes": 25
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 18,
+        "Runs": 362,
+        "Balls": 202,
+        "SR": 179.2,
+        "Avg": 30.2,
+        "Rate30": 27.8,
+        "HS": 88,
+        "Fours": 23,
+        "Sixes": 34
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 19,
+        "Runs": 289,
+        "Balls": 193,
+        "SR": 149.7,
+        "Avg": 22.2,
+        "Rate30": 15.8,
+        "HS": 47,
+        "Fours": 17,
+        "Sixes": 28
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 3,
+        "Runs": 89,
+        "Balls": 46,
+        "SR": 193.5,
+        "Avg": 44.5,
+        "Rate30": 66.7,
+        "HS": 52,
+        "Fours": 5,
+        "Sixes": 9
+      }
+    ],
+    "Anirudh Singh": [
+      {
+        "Season": "S2 2018",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 2,
+        "Runs": 9,
+        "Balls": 15,
+        "SR": 60.0,
+        "Avg": 4.5,
+        "Rate30": 0.0,
+        "HS": 7,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 12,
+        "Runs": 258,
+        "Balls": 152,
+        "SR": 169.7,
+        "Avg": 43.0,
+        "Rate30": 25.0,
+        "HS": 58,
+        "Fours": 6,
+        "Sixes": 26
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 17,
+        "Runs": 194,
+        "Balls": 157,
+        "SR": 123.6,
+        "Avg": 17.6,
+        "Rate30": 5.9,
+        "HS": 41,
+        "Fours": 7,
+        "Sixes": 12
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 14,
+        "Runs": 208,
+        "Balls": 155,
+        "SR": 134.2,
+        "Avg": 18.9,
+        "Rate30": 7.1,
+        "HS": 35,
+        "Fours": 7,
+        "Sixes": 15
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 20,
+        "Runs": 242,
+        "Balls": 217,
+        "SR": 111.5,
+        "Avg": 14.2,
+        "Rate30": 10.0,
+        "HS": 31,
+        "Fours": 13,
+        "Sixes": 14
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 16,
+        "Runs": 273,
+        "Balls": 212,
+        "SR": 128.8,
+        "Avg": 21.0,
+        "Rate30": 18.8,
+        "HS": 75,
+        "Fours": 23,
+        "Sixes": 17
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 24,
+        "Runs": 315,
+        "Balls": 281,
+        "SR": 112.1,
+        "Avg": 18.5,
+        "Rate30": 12.5,
+        "HS": 46,
+        "Fours": 17,
+        "Sixes": 21
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 16,
+        "Runs": 296,
+        "Balls": 260,
+        "SR": 113.8,
+        "Avg": 24.7,
+        "Rate30": 31.2,
+        "HS": 48,
+        "Fours": 18,
+        "Sixes": 15
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 15,
+        "Runs": 158,
+        "Balls": 152,
+        "SR": 103.9,
+        "Avg": 12.2,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 9,
+        "Sixes": 8
+      }
+    ],
+    "Pratik Padiya": [
+      {
+        "Season": "S2 2018",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 8,
+        "Runs": 86,
+        "Balls": 73,
+        "SR": 117.8,
+        "Avg": 12.3,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 4,
+        "Sixes": 4
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 14,
+        "Runs": 153,
+        "Balls": 106,
+        "SR": 144.3,
+        "Avg": 17.0,
+        "Rate30": 21.4,
+        "HS": 39,
+        "Fours": 2,
+        "Sixes": 12
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 21,
+        "Runs": 232,
+        "Balls": 162,
+        "SR": 143.2,
+        "Avg": 16.6,
+        "Rate30": 0.0,
+        "HS": 27,
+        "Fours": 7,
+        "Sixes": 19
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 10,
+        "Runs": 57,
+        "Balls": 61,
+        "SR": 93.4,
+        "Avg": 6.3,
+        "Rate30": 0.0,
+        "HS": 16,
+        "Fours": 8,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 19,
+        "Runs": 279,
+        "Balls": 172,
+        "SR": 162.2,
+        "Avg": 14.7,
+        "Rate30": 10.5,
+        "HS": 83,
+        "Fours": 21,
+        "Sixes": 19
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 13,
+        "Runs": 270,
+        "Balls": 154,
+        "SR": 175.3,
+        "Avg": 27.0,
+        "Rate30": 23.1,
+        "HS": 47,
+        "Fours": 22,
+        "Sixes": 21
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 19,
+        "Runs": 337,
+        "Balls": 224,
+        "SR": 150.4,
+        "Avg": 24.1,
+        "Rate30": 31.6,
+        "HS": 43,
+        "Fours": 21,
+        "Sixes": 25
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 15,
+        "Runs": 229,
+        "Balls": 160,
+        "SR": 143.1,
+        "Avg": 25.4,
+        "Rate30": 13.3,
+        "HS": 60,
+        "Fours": 15,
+        "Sixes": 18
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 13,
+        "Runs": 177,
+        "Balls": 144,
+        "SR": 122.9,
+        "Avg": 16.1,
+        "Rate30": 15.4,
+        "HS": 42,
+        "Fours": 11,
+        "Sixes": 15
+      }
+    ],
+    "Rajesh Reddy": [
+      {
+        "Season": "S2 2018",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 5,
+        "Runs": 49,
+        "Balls": 33,
+        "SR": 148.5,
+        "Avg": 9.8,
+        "Rate30": 20.0,
+        "HS": 31,
+        "Fours": 3,
+        "Sixes": 4
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 24,
+        "Runs": 394,
+        "Balls": 271,
+        "SR": 145.4,
+        "Avg": 26.3,
+        "Rate30": 20.8,
+        "HS": 47,
+        "Fours": 8,
+        "Sixes": 47
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 16,
+        "Runs": 393,
+        "Balls": 257,
+        "SR": 152.9,
+        "Avg": 30.2,
+        "Rate30": 37.5,
+        "HS": 73,
+        "Fours": 15,
+        "Sixes": 42
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 21,
+        "Runs": 482,
+        "Balls": 262,
+        "SR": 184.0,
+        "Avg": 30.1,
+        "Rate30": 38.1,
+        "HS": 54,
+        "Fours": 11,
+        "Sixes": 59
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 16,
+        "Runs": 226,
+        "Balls": 153,
+        "SR": 147.7,
+        "Avg": 16.1,
+        "Rate30": 18.8,
+        "HS": 42,
+        "Fours": 7,
+        "Sixes": 26
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 13,
+        "Runs": 195,
+        "Balls": 124,
+        "SR": 157.3,
+        "Avg": 17.7,
+        "Rate30": 23.1,
+        "HS": 38,
+        "Fours": 6,
+        "Sixes": 23
+      }
+    ],
+    "Kullu": [
+      {
+        "Season": "S2 2018",
+        "Matches": 18,
+        "Runs": 156,
+        "Balls": 137,
+        "SR": 113.9,
+        "Avg": 9.8,
+        "Rate30": 0.0,
+        "HS": 24,
+        "Fours": 10,
+        "Sixes": 11
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 2,
+        "Runs": 0,
+        "Balls": 3,
+        "SR": 0.0,
+        "Avg": 0.0,
+        "Rate30": 0.0,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 16,
+        "Runs": 198,
+        "Balls": 193,
+        "SR": 102.6,
+        "Avg": 19.8,
+        "Rate30": 12.5,
+        "HS": 34,
+        "Fours": 5,
+        "Sixes": 14
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 14,
+        "Runs": 133,
+        "Balls": 119,
+        "SR": 111.8,
+        "Avg": 11.1,
+        "Rate30": 0.0,
+        "HS": 23,
+        "Fours": 4,
+        "Sixes": 8
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 15,
+        "Runs": 133,
+        "Balls": 134,
+        "SR": 99.3,
+        "Avg": 14.8,
+        "Rate30": 0.0,
+        "HS": 25,
+        "Fours": 10,
+        "Sixes": 3
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 17,
+        "Runs": 179,
+        "Balls": 186,
+        "SR": 96.2,
+        "Avg": 11.2,
+        "Rate30": 5.9,
+        "HS": 31,
+        "Fours": 9,
+        "Sixes": 5
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 21,
+        "Runs": 349,
+        "Balls": 260,
+        "SR": 134.2,
+        "Avg": 19.4,
+        "Rate30": 19.0,
+        "HS": 61,
+        "Fours": 20,
+        "Sixes": 28
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 12,
+        "Runs": 164,
+        "Balls": 144,
+        "SR": 113.9,
+        "Avg": 18.2,
+        "Rate30": 0.0,
+        "HS": 27,
+        "Fours": 14,
+        "Sixes": 10
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 11,
+        "Runs": 87,
+        "Balls": 86,
+        "SR": 101.2,
+        "Avg": 9.7,
+        "Rate30": 0.0,
+        "HS": 26,
+        "Fours": 6,
+        "Sixes": 3
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 1,
+        "Runs": 26,
+        "Balls": 10,
+        "SR": 260.0,
+        "Avg": null,
+        "Rate30": 0.0,
+        "HS": 26,
+        "Fours": 1,
+        "Sixes": 3
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 0,
+        "Runs": 0,
+        "Balls": 0,
+        "SR": null,
+        "Avg": null,
+        "Rate30": null,
+        "HS": 0,
+        "Fours": 0,
+        "Sixes": 0
+      }
+    ],
+    "TG Ramakrishnan": [
+      {
+        "Season": "S2 2018",
+        "Matches": 25,
+        "Runs": 322,
+        "Balls": 310,
+        "SR": 103.9,
+        "Avg": 20.1,
+        "Rate30": 4.0,
+        "HS": 32,
+        "Fours": 12,
+        "Sixes": 24
+      },
+      {
+        "Season": "S1 2019",
+        "Matches": 2,
+        "Runs": 11,
+        "Balls": 16,
+        "SR": 68.8,
+        "Avg": 5.5,
+        "Rate30": 0.0,
+        "HS": 10,
+        "Fours": 0,
+        "Sixes": 1
+      },
+      {
+        "Season": "S1 2022",
+        "Matches": 16,
+        "Runs": 78,
+        "Balls": 124,
+        "SR": 62.9,
+        "Avg": 7.1,
+        "Rate30": 0.0,
+        "HS": 17,
+        "Fours": 2,
+        "Sixes": 2
+      },
+      {
+        "Season": "S1 2023",
+        "Matches": 18,
+        "Runs": 123,
+        "Balls": 178,
+        "SR": 69.1,
+        "Avg": 11.2,
+        "Rate30": 0.0,
+        "HS": 22,
+        "Fours": 1,
+        "Sixes": 7
+      },
+      {
+        "Season": "S2 2023",
+        "Matches": 12,
+        "Runs": 80,
+        "Balls": 100,
+        "SR": 80.0,
+        "Avg": 11.4,
+        "Rate30": 0.0,
+        "HS": 15,
+        "Fours": 7,
+        "Sixes": 3
+      },
+      {
+        "Season": "S3 2023",
+        "Matches": 14,
+        "Runs": 165,
+        "Balls": 178,
+        "SR": 92.7,
+        "Avg": 16.5,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 7,
+        "Sixes": 8
+      },
+      {
+        "Season": "S1 2024",
+        "Matches": 26,
+        "Runs": 248,
+        "Balls": 289,
+        "SR": 85.8,
+        "Avg": 15.5,
+        "Rate30": 7.7,
+        "HS": 39,
+        "Fours": 18,
+        "Sixes": 13
+      },
+      {
+        "Season": "S2 2024",
+        "Matches": 18,
+        "Runs": 130,
+        "Balls": 156,
+        "SR": 83.3,
+        "Avg": 7.6,
+        "Rate30": 0.0,
+        "HS": 20,
+        "Fours": 5,
+        "Sixes": 10
+      },
+      {
+        "Season": "S1 2025",
+        "Matches": 25,
+        "Runs": 193,
+        "Balls": 233,
+        "SR": 82.8,
+        "Avg": 11.4,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 15,
+        "Sixes": 8
+      },
+      {
+        "Season": "S2 2025",
+        "Matches": 15,
+        "Runs": 113,
+        "Balls": 152,
+        "SR": 74.3,
+        "Avg": 8.7,
+        "Rate30": 0.0,
+        "HS": 28,
+        "Fours": 10,
+        "Sixes": 4
+      },
+      {
+        "Season": "S1 2026",
+        "Matches": 15,
+        "Runs": 156,
+        "Balls": 156,
+        "SR": 100.0,
+        "Avg": 17.3,
+        "Rate30": 6.7,
+        "HS": 42,
+        "Fours": 12,
+        "Sixes": 8
+      }
+    ]
+  },
+  "career": {
+    "Shiva Vilayanur": {
+      "innings": 217,
+      "runs": 3870,
+      "balls": 2603,
+      "hs": 100,
+      "avg": 21.62,
+      "sr": 148.67,
+      "fours": 153,
+      "sixes": 340,
+      "rate30": 18.3,
+      "debut": "S2 2018",
+      "latest": "S1 2026",
+      "seasons_count": 11
+    },
+    "Atin Gupta": {
+      "innings": 185,
+      "runs": 2210,
+      "balls": 1957,
+      "hs": 74,
+      "avg": 18.73,
+      "sr": 112.93,
+      "fours": 136,
+      "sixes": 120,
+      "rate30": 6.0,
+      "debut": "S2 2018",
+      "latest": "S1 2026",
+      "seasons_count": 11
+    },
+    "Neeraj Kumar": {
+      "innings": 94,
+      "runs": 2142,
+      "balls": 1174,
+      "hs": 102,
+      "avg": 31.97,
+      "sr": 182.45,
+      "fours": 99,
+      "sixes": 220,
+      "rate30": 28.7,
+      "debut": "S1 2022",
+      "latest": "S1 2026",
+      "seasons_count": 9
+    },
+    "Amol K": {
+      "innings": 236,
+      "runs": 1973,
+      "balls": 2032,
+      "hs": 51,
+      "avg": 10.84,
+      "sr": 97.1,
+      "fours": 104,
+      "sixes": 105,
+      "rate30": 2.9,
+      "debut": "S2 2018",
+      "latest": "S1 2026",
+      "seasons_count": 11
+    },
+    "AD": {
+      "innings": 145,
+      "runs": 1954,
+      "balls": 1326,
+      "hs": 88,
+      "avg": 17.14,
+      "sr": 147.36,
+      "fours": 90,
+      "sixes": 178,
+      "rate30": 11.3,
+      "debut": "S1 2022",
+      "latest": "S1 2026",
+      "seasons_count": 9
+    },
+    "Anirudh Singh": {
+      "innings": 136,
+      "runs": 1953,
+      "balls": 1601,
+      "hs": 75,
+      "avg": 19.15,
+      "sr": 121.99,
+      "fours": 100,
+      "sixes": 128,
+      "rate30": 13.2,
+      "debut": "S1 2022",
+      "latest": "S1 2026",
+      "seasons_count": 9
+    },
+    "Pratik Padiya": {
+      "innings": 132,
+      "runs": 1820,
+      "balls": 1256,
+      "hs": 83,
+      "avg": 17.84,
+      "sr": 144.9,
+      "fours": 111,
+      "sixes": 133,
+      "rate30": 13.6,
+      "debut": "S1 2022",
+      "latest": "S1 2026",
+      "seasons_count": 9
+    },
+    "Rajesh Reddy": {
+      "innings": 95,
+      "runs": 1739,
+      "balls": 1100,
+      "hs": 73,
+      "avg": 23.5,
+      "sr": 158.09,
+      "fours": 50,
+      "sixes": 201,
+      "rate30": 27.4,
+      "debut": "S3 2023",
+      "latest": "S1 2026",
+      "seasons_count": 6
+    },
+    "Kullu": {
+      "innings": 142,
+      "runs": 1707,
+      "balls": 1478,
+      "hs": 61,
+      "avg": 14.84,
+      "sr": 115.49,
+      "fours": 89,
+      "sixes": 109,
+      "rate30": 5.5,
+      "debut": "S2 2018",
+      "latest": "S2 2025",
+      "seasons_count": 10
+    },
+    "TG Ramakrishnan": {
+      "innings": 186,
+      "runs": 1619,
+      "balls": 1892,
+      "hs": 42,
+      "avg": 12.55,
+      "sr": 85.57,
+      "fours": 89,
+      "sixes": 88,
+      "rate30": 2.2,
+      "debut": "S2 2018",
+      "latest": "S1 2026",
+      "seasons_count": 11
+    }
+  }
+};
+
+// Editorial palette for 10 lines — muted, magazine-style, distinguishable
+const COLORS = [
+  "#7A2C2A", // oxblood  (Shiva — the leader)
+  "#1F3A29", // forest   (Atin)
+  "#B8860B", // aged gold (Neeraj)
+  "#4A6B82", // steel blue (Amol)
+  "#8B5A2B", // sienna (AD)
+  "#5A3A6E", // aubergine (Anirudh)
+  "#2E6B5E", // teal-green (Pratik)
+  "#C05621", // burnt orange (Rajesh)
+  "#556B2F", // olive (Kullu)
+  "#6B4F3A"  // coffee (TG)
+];
+
+const metricLabels = {
+  Runs:   {title:"Runs per Season",       suffix:"", precision:0,
+           caption:"Total runs scored in each season. Volume tells you who showed up and kept batting — but not how well."},
+  SR:     {title:"Strike Rate",           suffix:"", precision:1,
+           caption:"Runs per 100 balls. Under the retirement rule, this is the cleanest skill signal in the database."},
+  Rate30: {title:"30+ Score Rate (%)",    suffix:"%", precision:1,
+           caption:"Percentage of innings in which the batter passed thirty. The measure of cashing-in, not just turning up."},
+  HS:     {title:"Highest Score",         suffix:"", precision:0,
+           caption:"Season-best single innings. Spikes usually mean a last-man-in situation; the rule otherwise caps balls at 25."},
+};
+
+const visible = new Set(PAYLOAD.players);
+
+function buildDatasets(metric){
+  return PAYLOAD.players.map((p,i)=>{
+    const seasonData = PAYLOAD.data[p];
+    return {
+      label: p,
+      data: seasonData.map(s => {
+        if(s.Matches===0) return null;
+        return s[metric];
+      }),
+      borderColor: COLORS[i],
+      backgroundColor: COLORS[i]+"22",
+      borderWidth: 2,
+      tension: 0.32,
+      pointRadius: 3.5,
+      pointHoverRadius: 6,
+      pointBackgroundColor: COLORS[i],
+      pointBorderColor: "#F2ECDD",
+      pointBorderWidth: 1.5,
+      spanGaps: false,
+      hidden: !visible.has(p),
+      _player: p,
+      _idx: i
+    };
+  });
+}
+
+let currentMetric = "Runs";
+
+const ctx = document.getElementById("mainChart").getContext("2d");
+const chart = new Chart(ctx, {
+  type: "line",
+  data: { labels: PAYLOAD.seasons, datasets: buildDatasets(currentMetric) },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    interaction: { intersect:false, mode:"index" },
+    plugins: {
+      legend: { display:false },
+      tooltip: {
+        backgroundColor:"#1A1713",
+        titleFont:{family:"Fraunces, serif", weight:"600", size:13},
+        bodyFont:{family:"JetBrains Mono, monospace", size:12},
+        padding:12, boxPadding:4, cornerRadius:0,
+        borderColor:"#9C7A2B", borderWidth:1,
+        callbacks: {
+          label: function(ctx){
+            const p = ctx.dataset._player;
+            const s = PAYLOAD.data[p][ctx.dataIndex];
+            if(!s || s.Matches===0) return null;
+            const v = ctx.parsed.y;
+            if(v===null||v===undefined) return null;
+            const suf = metricLabels[currentMetric].suffix;
+            const prec = metricLabels[currentMetric].precision;
+            return `${p}: ${Number(v).toFixed(prec)}${suf}  ·  ${s.Matches} inn, ${s.Runs} runs`;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid:{color:"rgba(26,23,19,0.06)", drawTicks:false},
+        border:{color:"#1A1713"},
+        ticks:{
+          color:"#4A4238",
+          font:{family:"JetBrains Mono, monospace", size:11, weight:"500"},
+          maxRotation:0, autoSkip:false
+        }
+      },
+      y: {
+        beginAtZero:true,
+        grid:{color:"rgba(26,23,19,0.06)", drawTicks:false},
+        border:{display:false},
+        ticks:{
+          color:"#4A4238",
+          font:{family:"JetBrains Mono, monospace", size:11},
+          padding:10
+        }
+      }
+    },
+    animation:{duration:650, easing:"easeOutQuart"}
+  }
+});
+
+// Metric tabs
+document.querySelectorAll(".metric-tab").forEach(btn=>{
+  btn.addEventListener("click", ()=>{
+    document.querySelectorAll(".metric-tab").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    currentMetric = btn.dataset.metric;
+    chart.data.datasets = buildDatasets(currentMetric);
+    chart.update();
+    document.getElementById("chartCaption").textContent = metricLabels[currentMetric].caption;
+  });
+});
+
+// Legend
+const legendEl = document.getElementById("legend");
+PAYLOAD.players.forEach((p,i)=>{
+  const c = PAYLOAD.career[p];
+  const item = document.createElement("div");
+  item.className = "legend-item";
+  item.innerHTML = `<span class="dot" style="background:${COLORS[i]}"></span>
+    <span class="name">${p}</span>`;
+  item.addEventListener("click", ()=>{
+    if(visible.has(p)) visible.delete(p); else visible.add(p);
+    item.classList.toggle("muted", !visible.has(p));
+    chart.data.datasets[i].hidden = !visible.has(p);
+    chart.update();
+  });
+  legendEl.appendChild(item);
+});
+document.getElementById("btnAll").addEventListener("click", ()=>{
+  PAYLOAD.players.forEach(p=>visible.add(p));
+  document.querySelectorAll(".legend-item").forEach(el=>el.classList.remove("muted"));
+  chart.data.datasets.forEach(ds=>ds.hidden=false);
+  chart.update();
+});
+document.getElementById("btnNone").addEventListener("click", ()=>{
+  visible.clear();
+  document.querySelectorAll(".legend-item").forEach(el=>el.classList.add("muted"));
+  chart.data.datasets.forEach(ds=>ds.hidden=true);
+  chart.update();
+});
+
+// Small multiples — one mini card per player
+const smGrid = document.getElementById("smallGrid");
+PAYLOAD.players.forEach((p,i)=>{
+  const c = PAYLOAD.career[p];
+  const seasonRuns = PAYLOAD.data[p].map(s=>s.Matches===0?null:s.Runs);
+  const card = document.createElement("div");
+  card.className = "sm-card";
+  card.innerHTML = `
+    <div class="sm-rank">#${String(i+1).padStart(2,"0")}</div>
+    <h3 class="sm-name">${p}</h3>
+    <div class="sm-span">${c.debut} → ${c.latest} · ${c.seasons_count} seasons</div>
+    <div class="sm-stats">
+      <div class="sm-stat"><div class="v">${c.runs.toLocaleString()}</div><div class="l">Runs</div></div>
+      <div class="sm-stat"><div class="v">${c.sr.toFixed(0)}</div><div class="l">SR</div></div>
+      <div class="sm-stat"><div class="v">${c.rate30.toFixed(0)}%</div><div class="l">30+</div></div>
+    </div>
+    <div class="sm-chart-wrap"><canvas id="sm-${i}"></canvas></div>
+  `;
+  smGrid.appendChild(card);
+
+  const ctx2 = document.getElementById("sm-"+i).getContext("2d");
+  new Chart(ctx2, {
+    type:"line",
+    data:{
+      labels: PAYLOAD.seasons,
+      datasets:[{
+        data: seasonRuns,
+        borderColor: COLORS[i],
+        backgroundColor: COLORS[i]+"22",
+        borderWidth: 1.75,
+        tension: 0.3,
+        pointRadius: 2,
+        pointBackgroundColor: COLORS[i],
+        pointBorderWidth: 0,
+        fill:true,
+        spanGaps:false
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{ legend:{display:false}, tooltip:{
+        backgroundColor:"#1A1713",
+        titleFont:{family:"JetBrains Mono, monospace", size:10},
+        bodyFont:{family:"Fraunces, serif", size:12, weight:"500"},
+        padding:8, cornerRadius:0,
+        callbacks:{
+          title:(items)=>PAYLOAD.seasons[items[0].dataIndex],
+          label:(ctx)=>{
+            const s = PAYLOAD.data[p][ctx.dataIndex];
+            if(!s||s.Matches===0) return "did not play";
+            return `${s.Runs} runs  ·  SR ${s.SR}  ·  ${s.Matches} inn`;
+          }
+        }
+      }},
+      scales:{
+        x:{display:false},
+        y:{display:false, beginAtZero:true}
+      },
+      animation:{duration:800, delay:(c)=>i*60 + c.dataIndex*15, easing:"easeOutQuart"}
+    }
+  });
+});
+
+// Career table
+const tbody = document.getElementById("tableBody");
+PAYLOAD.players.forEach((p,i)=>{
+  const c = PAYLOAD.career[p];
+  // compute max in each column for hiliting
+  tbody.insertAdjacentHTML("beforeend", `
+    <tr>
+      <td>${String(i+1).padStart(2,"0")}</td>
+      <td>${p}</td>
+      <td>${c.innings}</td>
+      <td class="hilite">${c.runs.toLocaleString()}</td>
+      <td>${c.hs}</td>
+      <td>${c.fours}</td>
+      <td>${c.sixes}</td>
+      <td>${c.sr.toFixed(1)}</td>
+      <td>${c.avg.toFixed(1)}</td>
+      <td>${c.rate30.toFixed(1)}</td>
+      <td>${c.debut.replace(" ","·")} / ${c.latest.replace(" ","·")}</td>
+    </tr>
+  `);
+});
+</script>
+</body>
+</html>
